@@ -1,6 +1,7 @@
 (ns std-board.core
   (:require [compojure.route :as route]
-            [clojure.java.io :as io])
+            [clojure.java.io :as io]
+            [ring.adapter.jetty :as jetty])
   (:use compojure.core
         compojure.handler
         ring.middleware.edn
@@ -22,3 +23,7 @@
   (-> compojure-handler
       site
       wrap-edn-params))
+
+(defn -main [& args]
+  (let [port (Integer/parseInt (get (System/getenv) "PORT" "5000"))]
+    (jetty/run-jetty app {:port port :join? false})))

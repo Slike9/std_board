@@ -8,6 +8,6 @@
     :builds [{
         :source-paths ["src"]
         :compiler {
-          :output-to "resources/js/main.js"
+          :output-to "../server/resources/public/js/main.js"
           :optimizations :whitespace
           :pretty-print true}}]})
