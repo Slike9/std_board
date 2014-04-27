@@ -3,6 +3,10 @@ std_board
 
 A Clojure library designed to ... well, that part is up to you.
 
+## Demo
+
+http://std-board.herokuapp.com/
+
 ## Usage
 
 FIXME
