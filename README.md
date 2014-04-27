@@ -1,7 +1,7 @@
 std_board
 =========
 
-A Clojure library designed to ... well, that part is up to you.
+User stroies dashboard like Jetbrains Youtrack Agile board.
 
 ## Demo
 
