@@ -1,0 +1,11 @@
+goog.addDependency("base.js", ['goog'], []);
+goog.addDependency("../cljs/core.js", ['cljs.core'], ['goog.string', 'goog.object', 'goog.string.StringBuffer', 'goog.array']);
+goog.addDependency("../domina/support.js", ['domina.support'], ['goog.dom', 'cljs.core', 'goog.events']);
+goog.addDependency("../clojure/string.js", ['clojure.string'], ['goog.string', 'cljs.core', 'goog.string.StringBuffer']);
+goog.addDependency("../domina.js", ['domina'], ['goog.dom.forms', 'goog.dom', 'goog.dom.classes', 'goog.string', 'cljs.core', 'domina.support', 'goog.style', 'clojure.string', 'goog.events', 'goog.dom.xml']);
+goog.addDependency("../domina/css.js", ['domina.css'], ['goog.dom', 'cljs.core', 'domina', 'goog.dom.query']);
+goog.addDependency("../domina/xpath.js", ['domina.xpath'], ['goog.dom', 'cljs.core', 'domina']);
+goog.addDependency("../enfocus/enlive/syntax.js", ['enfocus.enlive.syntax'], ['cljs.core']);
+goog.addDependency("../enfocus/core.js", ['enfocus.core'], ['goog.dom.forms', 'goog.dom', 'goog.dom.classes', 'domina.css', 'goog.Timer', 'goog.net.XhrIo', 'goog.dom.ViewportSizeMonitor', 'cljs.core', 'domina', 'goog.style', 'domina.xpath', 'clojure.string', 'goog.events', 'goog.dom.query', 'enfocus.enlive.syntax', 'goog.async.Delay']);
+goog.addDependency("../enfocus/events.js", ['enfocus.events'], ['goog.dom', 'cljs.core', 'goog.object', 'enfocus.core', 'goog.events']);
+goog.addDependency("../std_board/client/core.js", ['std_board.client.core'], ['cljs.core', 'enfocus.core', 'enfocus.events']);
