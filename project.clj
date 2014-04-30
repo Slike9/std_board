@@ -11,19 +11,25 @@
                  [korma "0.3.1"]
                  [mysql/mysql-connector-java "5.1.30"]
                  [fogus/ring-edn "0.2.0"]
+                 [enlive "1.1.5"]
                  ;
-                 [org.clojure/clojurescript "0.0-2202"]
+                 ;[org.clojure/clojurescript "0.0-2202"]
+                 [org.clojure/clojurescript "0.0-2138"]
                  [enfocus "2.1.0-SNAPSHOT"]
                  [cljs-ajax "0.2.3"]]
   :main std-board.core
   :ring {:handler std-board.core/app}
-  :profiles {:dev {:plugins [[lein-cljsbuild "1.0.3"]]}}
+  :profiles {:dev {:plugins [;[lein-cljsbuild "1.0.3"]
+                             [lein-cljsbuild "1.0.1"]
+                             [com.cemerick/austin "0.1.3"]]
+                   :source-paths ["src" "dev-utils"]
+                   :repl-options { :init (use 'std-board.dev-utils.repl) } }}
   :cljsbuild {
     :builds [{
         :source-paths ["src"]
         :compiler {
           :output-to "resources/public/js/main.js"
-          :output-dir "resources/public/out"
+          :output-dir "out"
           :optimizations :none
           :source-map true
           :pretty-print true}}]})

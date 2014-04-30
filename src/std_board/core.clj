@@ -1,7 +1,9 @@
 (ns std-board.core
   (:require [compojure.route :as route]
             [clojure.java.io :as io]
-            [ring.adapter.jetty :as jetty])
+            [ring.adapter.jetty :as jetty]
+            [net.cgrand.enlive-html :as enlive]
+            [cemerick.austin.repls :refer (browser-connected-repl-js)])
   (:use compojure.core
         compojure.handler
         ring.middleware.edn
@@ -12,8 +14,12 @@
    :headers {"Content-Type" "application/edn"}
    :body (pr-str data)})
 
+(enlive/deftemplate index-page "public/html/index.html" []
+  [:body] (enlive/append
+            (enlive/html [:script (browser-connected-repl-js)])))
+
 (defroutes compojure-handler
-  (GET "/" [] (slurp (io/resource "public/html/index.html")))
+  (GET "/" [] (index-page))
   (GET "/req" request (str request))
   (route/resources "/")
   (route/files "/" {:root (config :external-resources)})

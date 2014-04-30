@@ -1,6 +1,7 @@
 (ns std-board.client.core
   (:require [enfocus.core :as ef]
-            [enfocus.events :as ev])
+            [enfocus.events :as ev]
+            [clojure.browser.repl])
   (:require-macros [enfocus.macros :as em]))
 
 (defn start []
