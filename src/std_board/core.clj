@@ -3,7 +3,9 @@
             [clojure.java.io :as io]
             [ring.adapter.jetty :as jetty]
             [net.cgrand.enlive-html :as enlive]
-            [cemerick.austin.repls :refer (browser-connected-repl-js)])
+            [cemerick.austin.repls :refer (browser-connected-repl-js)]
+            [std-board.db :as db]
+            [std-board.repository :as repository])
   (:use compojure.core
         compojure.handler
         ring.middleware.edn
@@ -21,6 +23,7 @@
 (defroutes compojure-handler
   (GET "/" [] (index-page))
   (GET "/req" request (str request))
+  (GET "/stories" [] (pr-str (repository/get-stories)))
   (route/resources "/")
   (route/files "/" {:root (config :external-resources)})
   (route/not-found "Not found!"))
@@ -31,5 +34,6 @@
       wrap-edn-params))
 
 (defn -main [& args]
+  (db/setup)
   (let [port (Integer/parseInt (get (System/getenv) "PORT" "5000"))]
     (jetty/run-jetty app {:port port :join? false})))

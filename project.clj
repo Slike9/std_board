@@ -8,8 +8,8 @@
                  [compojure "1.1.6"]
                  [ring/ring-jetty-adapter "1.1.6"]
                  [sonian/carica "1.1.0" :exclusions [[cheshire]]]
-                 [korma "0.3.1"]
-                 [mysql/mysql-connector-java "5.1.30"]
+                 [korma "0.3.0-RC5"]
+                 [org.postgresql/postgresql "9.2-1002-jdbc4"]
                  [fogus/ring-edn "0.2.0"]
                  [enlive "1.1.5"]
                  ;

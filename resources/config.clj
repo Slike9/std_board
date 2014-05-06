@@ -1,4 +1,3 @@
 {:external-resources "../client/resources/"
- :db {:name "testdb"
-      :user "testdb"
-      :pass "testdb"}}
+ :db {:db "std_board_dev"
+      :user "postgres"}}
