@@ -1,0 +1,10 @@
+.b-story {
+  border: blue solid;
+  min-height: 100px;
+}
+
+.b-task {
+  border: green solid;
+  min-height: 70px;
+  margin: 5px 0 5px 0;
+}

@@ -6,7 +6,7 @@
 
 (defn start []
   (ef/at "#container" (ef/do->
-                        (ef/content "Hello world!")
+                        ;(ef/append "Hello worldddd!")
                         (ev/listen :click #(do
                                             (js/alert "Hello")
                                             (.log js/console "World")
