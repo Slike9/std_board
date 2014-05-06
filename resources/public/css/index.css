@@ -8,3 +8,8 @@
   min-height: 70px;
   margin: 5px 0 5px 0;
 }
+
+.b-dashboard-header {
+  margin: 10px 0 10px 0;
+  text-align: center;
+}
