@@ -3,7 +3,7 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :min-lein-version "2.0.0"
+  :min-lein-version "2.3.4"
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [compojure "1.1.6"]
                  [ring/ring-jetty-adapter "1.1.6"]
@@ -19,16 +19,11 @@
                  [cljs-ajax "0.2.3"]]
   :main std-board.core
   :ring {:handler std-board.core/app}
-  ;:profiles {:dev {:plugins [;[lein-cljsbuild "1.0.3"]
-                             ;[lein-cljsbuild "1.0.1"]
-                             ;[com.cemerick/austin "0.1.3"]]
-                   ;:source-paths ["src" "dev-utils"]
-                   ;:repl-options { :init (use 'std-board.dev-utils.repl) } }}
-  :plugins [;[lein-cljsbuild "1.0.3"]
-            [lein-cljsbuild "1.0.1"]
-            [com.cemerick/austin "0.1.3"]]
-  :profiles {:dev {:source-paths ["src" "dev-utils"]
-                   :repl-options { :init (use 'std-board.dev-utils.repl) }}}
+  :profiles {:dev {:plugins [;[lein-cljsbuild "1.0.3"]
+                             [lein-cljsbuild "1.0.1"]
+                             [com.cemerick/austin "0.1.3"]]
+                   :source-paths ["src" "dev-utils"]
+                   :repl-options { :init (use 'std-board.dev-utils.repl) } }}
   :cljsbuild {
               :builds [
                        {:id development

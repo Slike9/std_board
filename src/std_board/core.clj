@@ -3,7 +3,7 @@
             [clojure.java.io :as io]
             [ring.adapter.jetty :as jetty]
             [net.cgrand.enlive-html :as enlive]
-            [cemerick.austin.repls :refer (browser-connected-repl-js)]
+            ;[cemerick.austin.repls :refer (browser-connected-repl-js)]
             [std-board.db :as db]
             [std-board.repository :as repository]
             [std-board.environment :as environment])
@@ -21,8 +21,9 @@
   (enlive/deftemplate index-page "public/html/index.html" [])
   (do
     (enlive/deftemplate index-page "public/html/index.dev.html" []
-      [:body] (enlive/append
-                (enlive/html [:script (browser-connected-repl-js)])))))
+      ;[:body] (enlive/append
+                ;(enlive/html [:script (browser-connected-repl-js)]))
+      )))
 
 (defroutes compojure-handler
   (GET "/" [] (index-page))
