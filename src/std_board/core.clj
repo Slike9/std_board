@@ -5,7 +5,8 @@
             [net.cgrand.enlive-html :as enlive]
             [cemerick.austin.repls :refer (browser-connected-repl-js)]
             [std-board.db :as db]
-            [std-board.repository :as repository])
+            [std-board.repository :as repository]
+            [std-board.environment :as environment])
   (:use compojure.core
         compojure.handler
         ring.middleware.edn
@@ -16,9 +17,12 @@
    :headers {"Content-Type" "application/edn"}
    :body (pr-str data)})
 
-(enlive/deftemplate index-page "public/html/index.html" []
-  [:body] (enlive/append
-            (enlive/html [:script (browser-connected-repl-js)])))
+(if (environment/production?)
+  (enlive/deftemplate index-page "public/html/index.html" [])
+  (do
+    (enlive/deftemplate index-page "public/html/index.dev.html" []
+      [:body] (enlive/append
+                (enlive/html [:script (browser-connected-repl-js)])))))
 
 (defroutes compojure-handler
   (GET "/" [] (index-page))

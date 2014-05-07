@@ -19,17 +19,31 @@
                  [cljs-ajax "0.2.3"]]
   :main std-board.core
   :ring {:handler std-board.core/app}
-  :profiles {:dev {:plugins [;[lein-cljsbuild "1.0.3"]
-                             [lein-cljsbuild "1.0.1"]
-                             [com.cemerick/austin "0.1.3"]]
-                   :source-paths ["src" "dev-utils"]
-                   :repl-options { :init (use 'std-board.dev-utils.repl) } }}
+  ;:profiles {:dev {:plugins [;[lein-cljsbuild "1.0.3"]
+                             ;[lein-cljsbuild "1.0.1"]
+                             ;[com.cemerick/austin "0.1.3"]]
+                   ;:source-paths ["src" "dev-utils"]
+                   ;:repl-options { :init (use 'std-board.dev-utils.repl) } }}
+  :plugins [;[lein-cljsbuild "1.0.3"]
+            [lein-cljsbuild "1.0.1"]
+            [com.cemerick/austin "0.1.3"]]
+  :profiles {:dev {:source-paths ["src" "dev-utils"]
+                   :repl-options { :init (use 'std-board.dev-utils.repl) }}}
   :cljsbuild {
-    :builds [{
-        :source-paths ["src"]
-        :compiler {
-          :output-to "resources/public/js/main.js"
-          :output-dir "resources/public/out"
-          :optimizations :none
-          :source-map true
-          :pretty-print true}}]})
+              :builds [
+                       {:id development
+                        :source-paths ["src"]
+                        :compiler {
+                                   :output-to "resources/public/js/main.dev.js"
+                                   :output-dir "resources/public/out"
+                                   :optimizations :none
+                                   :source-map true
+                                   :pretty-print true}}
+                       {:id production
+                        :source-paths ["src"]
+                        :compiler {
+                                   :output-to "resources/public/js/main.js"
+                                   :optimizations :advanced
+                                   :pretty-print false}}]}
+  ;:hooks [leiningen.cljsbuild]
+  )
