@@ -25,10 +25,18 @@
                 ;(enlive/html [:script (browser-connected-repl-js)]))
       )))
 
+(defroutes stories-routes
+  (GET "/" [] (response (repository/get-stories)))
+  (GET "/:id" [id] (response (repository/get-story id)))
+  (POST "/" [story] (if (repository/create-story story)
+                      (response nil)
+                      (response nil 420)))
+  (DELETE "/:id" [id] (response (repository/delete-story id))))
+
 (defroutes compojure-handler
   (GET "/" [] (index-page))
   (GET "/req" request (str request))
-  (GET "/stories" [] (pr-str (repository/get-stories)))
+  (context "/stories" [] stories-routes)
   (route/resources "/")
   (route/files "/" {:root (config :external-resources)})
   (route/not-found "Not found!"))

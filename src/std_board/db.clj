@@ -27,7 +27,8 @@
                  "id SERIAL PRIMARY KEY,"
                  "title VARCHAR NOT NULL,"
                  "description VARCHAR,",
-                 "story_id INTEGER NOT NULL"
+                 "story_id INTEGER NOT NULL,"
+                 "status VARCHAR NOT NULL DEFAULT 'new'"
                  ");")))
 
 (defentity task)

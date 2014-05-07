@@ -1,6 +1,26 @@
 .b-story {
   border: blue solid;
-  min-height: 100px;
+  margin: 5px;
+}
+
+.b-story__status {
+  min-height: 80px;
+}
+
+.b-story__status_new {
+  background-color: #ffeeee;
+}
+
+.b-story__status_progress {
+  background-color: #ffffaf;
+}
+
+.b-story__status_done {
+  background-color: #aaffaa;
+}
+
+.b-story__header {
+  padding-left: 10px;
 }
 
 .b-task {
@@ -9,7 +29,8 @@
   margin: 5px 0 5px 0;
 }
 
-.b-dashboard-header {
+.b-dashboard__header {
   margin: 10px 0 10px 0;
   text-align: center;
+  font-weight: bold;
 }

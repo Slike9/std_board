@@ -21,33 +21,45 @@
     <div class="container" id="container">
       <div class="b-toolbar btn-toolbar" id="toolbar">
         <div class="btn-group">
-          <a class="btn btn-default"> Create Story </a>
+          <a class="btn btn-default" id="create-story-btn"> Create Story </a>
         </div>
       </div>
-      <div class="row b-dashboard-header" id="dashboard-header">
-        <div class="col-xs-4">New</div>
-        <div class="col-xs-4">In progress</div>
-        <div class="col-xs-4">Done</div>
-      </div>
-      <div class="row b-story">
-        <div class="col-xs-12">
-          <div class="row b-story__header">
-            New Story
-            Edit Delete
-          </div>
-          <div class="row b-story__body">
-            <div class="col-xs-4 b-story__status" data-status="new">
-              <div class="b-task">
-                Task 1
+
+      <div class="b-dashboard" id="dashboard">
+        <div class="row b-dashboard__header" id="dashboard-header">
+          <div class="col-xs-4">New</div>
+          <div class="col-xs-4">In progress</div>
+          <div class="col-xs-4">Done</div>
+        </div>
+        <div class="b-dashboard__body">
+
+          <!-- Story -->
+          <div class="row b-story">
+            <div class="col-xs-12">
+              <div class="row b-story__header">
+                <span class="b-story__title">New Story</span>
+                <span class="b-story__actions">
+                  <a class="b-story__edit btn btn-link">Edit</a>
+                  <a class="b-story__delete btn btn-link">Delete</a>
+                </span>
+              </div>
+              <div class="row b-story__body">
+                <div class="col-xs-4 b-story__status b-story__status_new" data-status="new">
+                  <!-- Task -->
+                  <div class="b-task">
+                    <div class="b-task__title">Task 1</div>
+                  </div>
+                </div>
+                <div class="col-xs-4 b-story__status b-story__status_progress" data-status="progress"> </div>
+                <div class="col-xs-4 b-story__status b-story__status_done" data-status="done"> </div>
               </div>
             </div>
-            <div class="col-xs-4 b-story__status" data-status="progress">
-            </div>
-            <div class="col-xs-4 b-story__status" data-status="done">
-            </div>
           </div>
+
         </div>
+
       </div>
+
     </div>
   </body>
 </html> 

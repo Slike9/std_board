@@ -26,7 +26,7 @@
                    :repl-options { :init (use 'std-board.dev-utils.repl) } }}
   :cljsbuild {
               :builds [
-                       {:id development
+                       {:id "development"
                         :source-paths ["src"]
                         :compiler {
                                    :output-to "resources/public/js/main.dev.js"
@@ -34,7 +34,7 @@
                                    :optimizations :none
                                    :source-map true
                                    :pretty-print true}}
-                       {:id production
+                       {:id "production"
                         :source-paths ["src"]
                         :compiler {
                                    :output-to "resources/public/js/main.js"
