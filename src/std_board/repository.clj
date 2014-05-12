@@ -16,10 +16,22 @@
   (insert db/story
           (values story-attrs)))
 
+(defn update-story [id story-attrs]
+  (if story-attrs
+    (update db/story
+            (set-fields story-attrs)
+            (where {:id id}))))
+
 (defn delete-story [id]
   (delete db/story
           (where {:id (Integer/parseInt id)})))
 
-(defn create-task [story-id, task-attrs]
+(defn create-story-task [story-id task-attrs]
   (insert db/task
-          (values (assoc task-attrs :story_id story-id))))
+          (values (assoc (or task-attrs {}) :story_id story-id))))
+
+(defn update-task [id task-attrs]
+  (if task-attrs
+    (update db/task
+            (set-fields task-attrs)
+            (where {:id id}))))

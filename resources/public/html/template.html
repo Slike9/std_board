@@ -26,6 +26,12 @@
       </div>
 
       <div class="b-dashboard" id="dashboard">
+        <div class="b-dashboard__decorator">
+          <div class="b-dashboard__decorator-status" data-status="new"></div>
+          <div class="b-dashboard__decorator-status" data-status="progress"></div>
+          <div class="b-dashboard__decorator-status" data-status="done"></div>
+        </div>
+
         <div class="row b-dashboard__header" id="dashboard-header">
           <div class="col-xs-4">New</div>
           <div class="col-xs-4">In progress</div>
@@ -38,20 +44,33 @@
             <div class="col-xs-12">
               <div class="row b-story__header">
                 <span class="b-story__title">New Story</span>
+                <input class="b-story__title-edit hidden"></input>
                 <span class="b-story__actions">
                   <a class="b-story__edit btn btn-link">Edit</a>
+                  <a class="b-story__save btn btn-link hidden">Save</a>
                   <a class="b-story__delete btn btn-link">Delete</a>
+                  |
+                  <a class="b-story__add-task btn btn-link">Add task</a>
                 </span>
               </div>
               <div class="row b-story__body">
-                <div class="col-xs-4 b-story__status b-story__status_new" data-status="new">
+                <div class="col-xs-4 b-story__status" data-status="new">
                   <!-- Task -->
                   <div class="b-task">
+                    <div class="b-task__header">
+                      <a class="b-task__edit btn btn-link">Edit</a>
+                      <a class="b-task__save btn btn-link hidden">Save</a>
+                      |
+                      <a class="b-task__start btn btn-link">Start</a>
+                      <a class="b-task__finish btn btn-link">Finish</a>
+                      <a class="b-task__reopen btn btn-link">Reopen</a>
+                    </div>
                     <div class="b-task__title">Task 1</div>
+                    <input class="b-task__title-edit hidden" value="Task 1"></input>
                   </div>
                 </div>
-                <div class="col-xs-4 b-story__status b-story__status_progress" data-status="progress"> </div>
-                <div class="col-xs-4 b-story__status b-story__status_done" data-status="done"> </div>
+                <div class="col-xs-4 b-story__status" data-status="progress"> </div>
+                <div class="col-xs-4 b-story__status" data-status="done"> </div>
               </div>
             </div>
           </div>

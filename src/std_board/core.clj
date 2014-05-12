@@ -25,13 +25,28 @@
                 ;(enlive/html [:script (browser-connected-repl-js)]))
       )))
 
+(defroutes story-tasks-routes
+  (POST "/tasks" [story-id task] (let [story-id (Integer/parseInt story-id)]
+                                   (if (repository/create-story-task story-id task)
+                                     (response nil)
+                                     (response nil 420))))
+  (PUT "/tasks/:id" [id task] (let [id (Integer/parseInt id)]
+                                   (if (repository/update-task id task)
+                                     (response nil)
+                                     (response nil 420)))))
+
 (defroutes stories-routes
   (GET "/" [] (response (repository/get-stories)))
   (GET "/:id" [id] (response (repository/get-story id)))
   (POST "/" [story] (if (repository/create-story story)
                       (response nil)
                       (response nil 420)))
-  (DELETE "/:id" [id] (response (repository/delete-story id))))
+  (PUT "/:id" [id story] (let [id (Integer/parseInt id)]
+                           (if (repository/update-story id story)
+                             (response nil)
+                             (response nil 420))))
+  (DELETE "/:id" [id] (response (repository/delete-story id)))
+  (context "/:story-id" [story-id] story-tasks-routes))
 
 (defroutes compojure-handler
   (GET "/" [] (index-page))
