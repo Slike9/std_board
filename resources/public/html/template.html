@@ -43,14 +43,18 @@
           <div class="row b-story">
             <div class="col-xs-12">
               <div class="row b-story__header">
-                <span class="b-story__title">New Story</span>
-                <input class="b-story__title-edit hidden"></input>
-                <span class="b-story__actions">
-                  <a class="b-story__edit btn btn-link">Edit</a>
-                  <a class="b-story__save btn btn-link hidden">Save</a>
-                  <a class="b-story__delete btn btn-link">Delete</a>
-                  |
+                <div class="pull-left">
+                  <span class="b-story__title">New Story</span>
+                  <input class="b-story__title-edit hidden"></input>
+                  <span class="b-story__actions">
+                    <a class="b-story__save btn btn-primary btn-sm hidden">Save</a>
+                  </span>
+                </div>
+                <span class="b-story__actions pull-right">
                   <a class="b-story__add-task btn btn-link">Add task</a>
+                  <a class="b-story__delete btn btn-link">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </a>
                 </span>
               </div>
               <div class="row b-story__body">

@@ -19,9 +19,17 @@
 
 (em/defsnippet story-snippet "html/template.html" ".b-story" [story]
   ".b-story" (ef/set-attr :data-story-id (:id story))
-  ".b-story__title" (ef/content (:title story))
-  ".b-story__title-edit" (ef/set-form-input (:title story))
-  ".b-story__edit" (ev/listen "click" #(edit-story (:id story)))
+  ".b-story__title" (ef/do->
+                      (ef/content (:title story))
+                      (ev/listen "click" #(edit-story (:id story))))
+  ".b-story__title-edit" (ef/do->
+                           (ef/set-form-input (:title story))
+                           (ev/listen "blur" #(cancel-edit-story (:id story)))
+                           (ev/listen "keydown" (fn [event]
+                                                  (case (.-keyCode event)
+                                                    13 (save-story (:id story))
+                                                    ;27 (cancel-edit-story (:id story))
+                                                    :default))))
   ".b-story__save" (ev/listen "click" #(save-story (:id story)))
   ".b-story__delete" (ev/listen "click" #(delete-story (:id story)))
   ".b-story__add-task" (ev/listen "click" #(create-story-task (:id story)))
@@ -31,16 +39,21 @@
   )
 
 (defn edit-story [story-id]
-  (ef/at (str ".b-story[data-story-id=" story-id "] .b-story__edit") (ef/add-class "hidden"))
-  (ef/at (str ".b-story[data-story-id=" story-id "] .b-story__save") (ef/remove-class "hidden"))
-  (ef/at (str ".b-story[data-story-id=" story-id "] .b-story__title") (ef/add-class "hidden"))
-  (ef/at (str ".b-story[data-story-id=" story-id "] .b-story__title-edit") (ef/remove-class "hidden")))
+  (let [story-sel (str ".b-story[data-story-id=" story-id "] ")]
+    (ef/at (str story-sel ".b-story__save") (ef/remove-class "hidden"))
+    (ef/at (str story-sel ".b-story__title") (ef/add-class "hidden"))
+    (ef/at (str story-sel ".b-story__title-edit") (ef/do->
+                                                   (ef/remove-class "hidden")
+                                                   (ef/focus) ))))
 
-(defn save-story [story-id]
-  (ef/at (str ".b-story[data-story-id=" story-id "] .b-story__edit") (ef/remove-class "hidden"))
+(defn cancel-edit-story [story-id]
+  (.log js/console "OK")
   (ef/at (str ".b-story[data-story-id=" story-id "] .b-story__save") (ef/add-class "hidden"))
   (ef/at (str ".b-story[data-story-id=" story-id "] .b-story__title") (ef/remove-class "hidden"))
-  (ef/at (str ".b-story[data-story-id=" story-id "] .b-story__title-edit") (ef/add-class "hidden"))
+  (ef/at (str ".b-story[data-story-id=" story-id "] .b-story__title-edit") (ef/add-class "hidden")))
+
+(defn save-story [story-id]
+  (cancel-edit-story story-id)
   (let [new-title (ef/from (str ".b-story[data-story-id=" story-id "] .b-story__title-edit")
                               (ef/read-form-input))]
     (ef/at (str ".b-story[data-story-id=" story-id "] .b-story__title")
