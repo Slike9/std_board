@@ -30,15 +30,15 @@
                  "story_id INTEGER NOT NULL,"
                  "status VARCHAR NOT NULL DEFAULT 'new'"
                  ");"))
-  (exec-raw (str "DO $$"
-                 "  BEGIN"
-                 "    BEGIN"
-                 "      ALTER TABLE task ADD COLUMN status VARCHAR NOT NULL DEFAULT 'new';"
-                 "    EXCEPTION"
-                 "      when duplicate_column THEN RAISE NOTICE 'column <column_name> already exists in <table_name>.';"
-                 "    END;"
-                 "  END;"
-                 "$$")))
+  ;(exec-raw (str "DO $$"
+                 ;"  BEGIN"
+                 ;"    BEGIN"
+                 ;"      ALTER TABLE task ADD COLUMN status VARCHAR NOT NULL DEFAULT 'new';"
+                 ;"    EXCEPTION"
+                 ;"      when duplicate_column THEN RAISE NOTICE 'column <column_name> already exists in <table_name>.';"
+                 ;"    END;"
+                 ;"  END;"
+                 ;"$$")))
 
 (defentity task)
 

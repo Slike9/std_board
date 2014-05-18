@@ -35,3 +35,7 @@
     (update db/task
             (set-fields task-attrs)
             (where {:id id}))))
+
+(defn delete-task [id]
+  (delete db/task
+          (where {:id id})))

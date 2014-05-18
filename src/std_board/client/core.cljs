@@ -64,9 +64,17 @@
 
 (em/defsnippet task-snippet "html/template.html" ".b-task" [task]
   ".b-task" (ef/set-attr :data-task-id (:id task))
-  ".b-task__title" (ef/content (:title task))
-  ".b-task__title-edit" (ef/set-form-input (:title task))
-  ".b-task__edit" (ev/listen "click" #(edit-task task))
+  ".b-task__title" (ef/do->
+                     (ef/content (:title task))
+                     (ev/listen "click" #(edit-task task)) )
+  ".b-task__title-edit" (ef/do->
+                         (ef/set-form-input (:title task))
+                         (ev/listen "keydown" (fn [event]
+                                              (case (.-keyCode event)
+                                                13 (do
+                                                     (.preventDefault event)
+                                                     (save-task task) )
+                                                :default))) )
   ".b-task__save" (ev/listen "click" #(save-task task))
   ".b-task__start" (ef/do->
                      (ev/listen "click" #(set-task-status task "progress"))
@@ -79,35 +87,26 @@
   ".b-task__reopen" (ef/do->
                      (ev/listen "click" #(set-task-status task "new"))
                      (if (not= (:status task) "done")
-                       (ef/set-style :display "none"))))
+                       (ef/set-style :display "none")))
+  ".b-task__delete" (ev/listen "click" #(delete-task task)))
+
 (defn edit-task [task]
   (let [task-id (:id task)
-        story-id (:story_id task)]
-    (ef/at (str ".b-task[data-task-id=" task-id "] .b-task__edit")
-           (ef/add-class "hidden"))
-    (ef/at (str ".b-task[data-task-id=" task-id "] .b-task__save")
-           (ef/remove-class "hidden"))
-    (ef/at (str ".b-task[data-task-id=" task-id "] .b-task__title")
-           (ef/add-class "hidden"))
-    (ef/at (str ".b-task[data-task-id=" task-id "] .b-task__title-edit")
-           (ef/remove-class "hidden"))
-    ))
+        task-sel (str ".b-task[data-task-id=" task-id "] ") ]
+    (ef/at (str task-sel) (ef/add-class "b-task_edit") )
+    (ef/at (str task-sel ".b-task__title-edit") (ef/focus) )))
+
+(defn cancel-edit-task [task]
+  (let [task-id (:id task)
+        task-sel (str ".b-task[data-task-id=" task-id "] ") ]
+    (ef/at (str task-sel) (ef/remove-class "b-task_edit") )))
 
 (defn save-task [task]
   (let [task-id (:id task)
-        story-id (:story_id task)
-        new-title (ef/from (str ".b-task[data-task-id=" task-id "] .b-task__title-edit")
-                           (ef/read-form-input)) ]
-    (ef/at (str ".b-task[data-task-id=" task-id "] .b-task__edit")
-           (ef/remove-class "hidden"))
-    (ef/at (str ".b-task[data-task-id=" task-id "] .b-task__save")
-           (ef/add-class "hidden"))
-    (ef/at (str ".b-task[data-task-id=" task-id "] .b-task__title")
-           (ef/remove-class "hidden"))
-    (ef/at (str ".b-task[data-task-id=" task-id "] .b-task__title-edit")
-           (ef/add-class "hidden"))
-    (ef/at (str ".b-task[data-task-id=" task-id "] .b-task__title")
-           (ef/content new-title))
+        task-sel (str ".b-task[data-task-id=" task-id "] ")
+        new-title (ef/from (str task-sel ".b-task__title-edit") (ef/read-form-input)) ]
+    (cancel-edit-task task)
+    (ef/at (str task-sel ".b-task__title") (ef/content new-title))
     (PUT (str "/stories/" (:story_id task) "/tasks/" (:id task))
          {:params {:task {:title new-title}}
           :error-handler error-handler })))
@@ -148,6 +147,14 @@
         {:params {:task {:status status}}
          :handler load-stories
          :error-handler error-handler }))
+
+(defn delete-task [task]
+  (if (js/confirm "Delete the task?")
+    (ajax.core/ajax-request (str "/stories/" (:story_id task) "/tasks/" (:id task))
+                            "DELETE"
+                            (ajax.core/transform-opts
+                              {:handler load-stories
+                               :error-handler error-handler }))))
 
 (defn start []
   (ef/at "#container" (ef/do->

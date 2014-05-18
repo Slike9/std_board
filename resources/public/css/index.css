@@ -32,22 +32,37 @@
   margin: 5px 0 5px 0;
   /*background-color: #eeeeee;*/
   background-color: rgba(255,255,255,0.7);
-  padding: 0 10px 0 10px;
+  padding-bottom: 3px;
   box-shadow: rgba(100,100,100,0.4) 3px 3px;
 }
 
 .b-task__title {
   text-align: center;
+  cursor: pointer;
 }
 
 .b-task__title-edit {
-  text-align: center;
   width: 100%;
 }
 
 .b-task__header {
   text-align: right;
-  padding: 0 5px 0 5px;
+}
+
+.b-task__edit-form {
+  padding: 0px 5px;
+}
+
+.b-task__edit-form {
+  display: none;
+}
+
+.b-task.b-task_edit .b-task__title {
+  display: none;
+}
+
+.b-task.b-task_edit .b-task__edit-form {
+  display: block;
 }
 
 

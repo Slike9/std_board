@@ -33,7 +33,11 @@
   (PUT "/tasks/:id" [id task] (let [id (Integer/parseInt id)]
                                    (if (repository/update-task id task)
                                      (response nil)
-                                     (response nil 420)))))
+                                     (response nil 420))))
+  (DELETE "/tasks/:id" [id] (let [id (Integer/parseInt id)]
+                              (if (repository/delete-task id)
+                                (response nil)
+                                (response nil 420)))))
 
 (defroutes stories-routes
   (GET "/" [] (response (repository/get-stories)))

@@ -62,15 +62,24 @@
                   <!-- Task -->
                   <div class="b-task">
                     <div class="b-task__header">
-                      <a class="b-task__edit btn btn-link">Edit</a>
-                      <a class="b-task__save btn btn-link hidden">Save</a>
-                      |
                       <a class="b-task__start btn btn-link">Start</a>
                       <a class="b-task__finish btn btn-link">Finish</a>
                       <a class="b-task__reopen btn btn-link">Reopen</a>
                     </div>
                     <div class="b-task__title">Task 1</div>
-                    <input class="b-task__title-edit hidden" value="Task 1"></input>
+                    <div class="b-task__edit-form">
+                      <textarea class="b-task__title-edit" value="Task 1"></textarea>
+                      <div class="btn-toolbar">
+                        <div class="btn-group pull-right">
+                          <a class="b-task__delete btn btn-danger btn-sm">
+                            Delete
+                          </a>
+                        </div>
+                        <div class="btn-group pull-right">
+                          <a class="b-task__save btn btn-primary btn-sm">Save</a>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-xs-4 b-story__status" data-status="progress"> </div>
