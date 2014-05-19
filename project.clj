@@ -19,15 +19,16 @@
                  [cljs-ajax "0.2.3"]]
   :main std-board.core
   :ring {:handler std-board.core/app}
+  :source-paths ["src/clj"]
   :profiles {:dev {:plugins [;[lein-cljsbuild "1.0.3"]
                              [lein-cljsbuild "1.0.1"]
                              [com.cemerick/austin "0.1.3"]]
-                   :source-paths ["src" "dev-utils"]
+                   :source-paths ["src/clj" "dev-utils"]
                    :repl-options { :init (use 'std-board.dev-utils.repl) } }}
   :cljsbuild {
               :builds [
                        {:id "development"
-                        :source-paths ["src"]
+                        :source-paths ["src/cljs"]
                         :compiler {
                                    :output-to "resources/public/js/main.dev.js"
                                    :output-dir "resources/public/out"
@@ -35,7 +36,7 @@
                                    :source-map true
                                    :pretty-print true}}
                        {:id "production"
-                        :source-paths ["src"]
+                        :source-paths ["src/cljs"]
                         :compiler {
                                    :output-to "resources/public/js/main.js"
                                    :optimizations :advanced

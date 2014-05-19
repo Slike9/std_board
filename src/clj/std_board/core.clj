@@ -40,7 +40,7 @@
                                 (response nil 420)))))
 
 (defroutes stories-routes
-  (GET "/" [] (response (repository/get-stories)))
+  (GET "/" {user :user} (response (repository/get-stories)))
   (GET "/:id" [id] (response (repository/get-story id)))
   (POST "/" [story] (if (repository/create-story story)
                       (response nil)
@@ -52,16 +52,37 @@
   (DELETE "/:id" [id] (response (repository/delete-story id)))
   (context "/:story-id" [story-id] story-tasks-routes))
 
+(defroutes projects-routes
+  (GET "/" [] (response (repository/get-projects)))
+  (POST "/" [project] (if (repository/create-project project)
+                      (response nil)
+                      (response nil 420)))
+  (PUT "/:id" [id project] (response (repository/update-project (Integer/parseInt id) project)))
+  (DELETE "/:id" [id] (response (repository/delete-project (Integer/parseInt id))))
+  (context "/:project-id" [project-id]
+           (GET "/stories" [] (response (repository/get-project-stories (Integer/parseInt project-id))))))
+
 (defroutes compojure-handler
   (GET "/" [] (index-page))
   (GET "/req" request (str request))
+  (context "/projects" [] projects-routes)
   (context "/stories" [] stories-routes)
   (route/resources "/")
   (route/files "/" {:root (config :external-resources)})
   (route/not-found "Not found!"))
 
+;(defn wrap-user [handler]
+  ;(fn [request]
+    ;(let [user (if-let [user-id (get-in request [:session "user-id"])]
+                 ;(repository/get-user user-id)
+                 ;(repository/create-user))]
+      ;(let [request (assoc request :user user)
+            ;response (handler request)]
+        ;(assoc-in response [:session "user-id"] (:id user))))))
+
 (def app
   (-> compojure-handler
+      ;wrap-user
       site
       wrap-edn-params))
 

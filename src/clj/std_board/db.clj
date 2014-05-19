@@ -21,29 +21,47 @@
   (exec-raw (str "CREATE TABLE IF NOT EXISTS story ("
                  "id SERIAL PRIMARY KEY,"
                  "title VARCHAR NOT NULL,"
-                 "description VARCHAR"
+                 "description VARCHAR,"
+                 "project_id INTEGER"
                  ");"))
   (exec-raw (str "CREATE TABLE IF NOT EXISTS task ("
                  "id SERIAL PRIMARY KEY,"
                  "title VARCHAR NOT NULL,"
-                 "description VARCHAR,",
+                 "description VARCHAR,"
                  "story_id INTEGER NOT NULL,"
                  "status VARCHAR NOT NULL DEFAULT 'new'"
                  ");"))
-  ;(exec-raw (str "DO $$"
-                 ;"  BEGIN"
-                 ;"    BEGIN"
-                 ;"      ALTER TABLE task ADD COLUMN status VARCHAR NOT NULL DEFAULT 'new';"
-                 ;"    EXCEPTION"
-                 ;"      when duplicate_column THEN RAISE NOTICE 'column <column_name> already exists in <table_name>.';"
-                 ;"    END;"
-                 ;"  END;"
-                 ;"$$")))
+  (exec-raw (str "CREATE TABLE IF NOT EXISTS project ("
+                 "id SERIAL PRIMARY KEY,"
+                 "title VARCHAR NOT NULL,"
+                 "description VARCHAR,"
+                 "user_id INTEGER"
+                 ");"))
+  (exec-raw (str "CREATE TABLE IF NOT EXISTS \"user\" ("
+                 "id SERIAL PRIMARY KEY,"
+                 "name VARCHAR NOT NULL,"
+                 "password_encrypted VARCHAR"
+                 ");"))
+  (exec-raw (str "DO $$"
+                 "  BEGIN"
+                 "    BEGIN"
+                 "      ALTER TABLE story ADD COLUMN project_id INTEGER;"
+                 "    EXCEPTION"
+                 "      when duplicate_column THEN RAISE NOTICE 'column <column_name> already exists in <table_name>.';"
+                 "    END;"
+                 "  END;"
+                 "$$")))
 
 (defentity task)
 
 (defentity story
   (has-many task))
+
+(defentity project
+  (has-many story))
+
+(defentity user
+  (has-many project))
 
 (defn setup []
   (migrate-schema))

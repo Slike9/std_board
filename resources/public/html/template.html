@@ -21,7 +21,26 @@
     <div class="container" id="container">
       <div class="b-toolbar btn-toolbar" id="toolbar">
         <div class="btn-group">
-          <a class="btn btn-default" id="create-story-btn"> Create Story </a>
+          <a class="btn btn-primary" id="create-story-btn"> Create Story </a>
+        </div>
+        <div class="b-project pull-right">
+          <div class="b-project__show form-inline">
+            <div class="form-group">
+              <label>Project:</label>
+              <select class="form-control" id="project-list"></select>
+            </div>
+            <a class="btn btn-link b-project__edit">Edit</a>
+            <a class="btn btn-link b-project__create">Create</a>
+          </div>
+          <div class="b-project__edit-form form-inline">
+            <div class="form-group">
+              <label>Project:</label>
+              <input class="form-control b-project__title-edit"></select>
+            </div>
+            <a class="b-project__save btn btn-primary btn-sm">Save</a>
+            <a class="b-project__delete btn btn-danger btn-sm">Delete</a>
+            <a class="b-project__cancel btn btn-link btn-sm">Cancel</a>
+          </div>
         </div>
       </div>
 
@@ -45,10 +64,13 @@
               <div class="row b-story__header">
                 <div class="pull-left">
                   <span class="b-story__title">New Story</span>
-                  <input class="b-story__title-edit hidden"></input>
-                  <span class="b-story__actions">
-                    <a class="b-story__save btn btn-primary btn-sm hidden">Save</a>
-                  </span>
+                  <div class="b-story__edit-form">
+                    <input class="b-story__title-edit"></input>
+                    <span class="b-story__actions">
+                      <a class="b-story__save btn btn-primary btn-sm">Save</a>
+                      <a class="b-story__cancel btn btn-link">Cancel</a>
+                    </span>
+                  </div>
                 </div>
                 <span class="b-story__actions pull-right">
                   <a class="b-story__add-task btn btn-link">Add task</a>

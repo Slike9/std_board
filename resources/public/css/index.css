@@ -14,7 +14,7 @@
   cursor: pointer;
   font-weight: bold;
   display: inline-block;
-  margin-top: 4px;
+  margin-top: 6px;
   margin-left: 2px;
 }
 
@@ -22,6 +22,18 @@
   background-color: rgba(255, 255, 255, 0.7);
   font-weight: bold;
   min-width: 400px;
+}
+
+.b-story__edit-form {
+  display: none;
+}
+
+.b-story.b-story_edit .b-story__edit-form {
+  display: inline-block;
+}
+
+.b-story.b-story_edit .b-story__title {
+  display: none;
 }
 
 /* b-task */
@@ -101,6 +113,22 @@
 
 .b-dashboard__decorator-status[data-status="done"] {
   background-color: #aaffaa;
+}
+
+.b-project {
+  display: inline-block;
+}
+
+.b-project__edit-form {
+  display: none;
+}
+
+.b-project.b-project_edit .b-project__edit-form {
+  display: inline-block;
+}
+
+.b-project.b-project_edit .b-project__show {
+  display: none;
 }
 
 #footer {
