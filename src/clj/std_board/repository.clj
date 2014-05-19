@@ -75,7 +75,8 @@
 (defn get-project-stories [id]
   (select db/story
           (with db/task)
-          (where (= :project_id id))))
+          (where (= :project_id id))
+          (order :id :DESC)))
 
 (defn create-project [project-attrs]
   (insert db/project (values project-attrs)))

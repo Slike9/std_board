@@ -45,7 +45,7 @@
   ".b-story__cancel" (ev/listen "click" #(cancel-edit-story (:id story)))
   ".b-story__delete" (ev/listen "click" #(delete-story (:id story)))
   ".b-story__add-task" (ev/listen "click" #(create-story-task (:id story)))
-  ".b-story__status[data-status='new']" (ef/content (render-story-tasks-with-status story "new"))
+  ".b-story__status[data-status='new'] .b-story__status-body" (ef/content (render-story-tasks-with-status story "new"))
   ".b-story__status[data-status='progress']" (ef/content (render-story-tasks-with-status story "progress"))
   ".b-story__status[data-status='done']" (ef/content (render-story-tasks-with-status story "done"))
   )
